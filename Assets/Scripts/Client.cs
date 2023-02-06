@@ -17,7 +17,7 @@ public class Client : MonoBehaviour
         mytext.text = txt + "\n";
     }
 
-    public void Start()//string ip= "127.0.0.1", ushort port=8007)
+    public void Start() //string ip= "127.0.0.1", ushort port=8007)
     {
 
         m_Driver = NetworkDriver.Create();

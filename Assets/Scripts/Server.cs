@@ -4,6 +4,13 @@ using UnityEngine.Assertions;
 using Unity.Collections;
 using Unity.Networking.Transport;
 using UnityEngine.UI;
+using UnityEngine.Networking.Types;
+using UnityEngine.Networking;
+using System.Net;
+using System;
+using System.Linq;
+using System.Net.Sockets;
+using System.Xml.Linq;
 
 public class Server : MonoBehaviour
 {
@@ -14,9 +21,10 @@ public class Server : MonoBehaviour
 
     public void addmsg(string txt)
     {
-        mytext.text = txt + "\n";
+        mytext.text += txt + "\n";
     }
 
+    [Obsolete]
     void Start()
     {
         m_Driver = NetworkDriver.Create();
@@ -28,6 +36,33 @@ public class Server : MonoBehaviour
             m_Driver.Listen();
 
         m_Connections = new NativeList<NetworkConnection>(16, Allocator.Persistent);
+
+        GetIP();
+    }
+
+    public void GetIP()
+    {
+        /*
+        string address;
+        int port;
+        NetworkID netID;
+        NodeID nodeID;
+        byte error;
+
+        NetworkTransport.GetConnectionInfo(0, 0, out address, out port, out netID, out nodeID, out error);
+        
+        addmsg(address + " & " + port); */
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                addmsg(ip.ToString());
+                
+            }
+        }
+ //       throw new System.Exception("No network adapters with an IPv4 address in the system!");
+
     }
 
     public void OnDestroy()

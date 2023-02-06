@@ -63,27 +63,28 @@ public class Server : MonoBehaviour
         }
 
         DataStreamReader stream;
-        int count=0;
-        for (count = 0; count < m_Connections.Length; count++)
+        
+        for (int i = 0; i < m_Connections.Length; i++)
         {
             NetworkEvent.Type cmd;
-            while ((cmd = m_Driver.PopEventForConnection(m_Connections[count], out stream)) != NetworkEvent.Type.Empty)
+            while ((cmd = m_Driver.PopEventForConnection(m_Connections[i], out stream)) != NetworkEvent.Type.Empty)
             {
                 if (cmd == NetworkEvent.Type.Data)
                 {
                     uint number = stream.ReadUInt();
 
-                    addmsg("Got " + number + "from" + count + "\n");
+                    addmsg("Got " + number + "from" + i + "\n");
                     number += 2;
+                    count++;
 
-                    m_Driver.BeginSend(NetworkPipeline.Null, m_Connections[count], out var writer);
+                    m_Driver.BeginSend(NetworkPipeline.Null, m_Connections[i], out var writer);
                     writer.WriteUInt(number);
                     m_Driver.EndSend(writer);
                 }
                 else if (cmd == NetworkEvent.Type.Disconnect)
                 {
                     addmsg("Client disconnected from server");
-                    m_Connections[count] = default(NetworkConnection);
+                    m_Connections[i] = default(NetworkConnection);
                 }
             }
         }

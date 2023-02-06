@@ -11,7 +11,6 @@ public class Server : MonoBehaviour
     private NativeList<NetworkConnection> m_Connections;
 
     public Text mytext;
-    public int count = 0;
 
     public void addmsg(string txt)
     {
@@ -73,19 +72,20 @@ public class Server : MonoBehaviour
                 {
                     uint number = stream.ReadUInt();
 
-                    addmsg("Got " + number + "from" + i + "\n");
+                    addmsg("Got " + number + "from" + "\n");
                     number += 2;
-                    count++;
-
+                    
                     m_Driver.BeginSend(NetworkPipeline.Null, m_Connections[i], out var writer);
                     writer.WriteUInt(number);
                     m_Driver.EndSend(writer);
                 }
+
+                /* Not disconnecting
                 else if (cmd == NetworkEvent.Type.Disconnect)
                 {
                     addmsg("Client disconnected from server");
                     m_Connections[i] = default(NetworkConnection);
-                }
+                }*/
             }
         }
 

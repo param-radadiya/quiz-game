@@ -1,7 +1,7 @@
 using UnityEngine;
 
 using Unity.Networking.Transport;
-    using UnityEngine.UI;
+using UnityEngine.UI;
 
 public class Client : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class Client : MonoBehaviour
 
     public void addmsg(string txt)
     {
-        mytext.text = txt+"\n";
+        mytext.text = txt + "\n";
     }
 
     public void Start()//string ip= "127.0.0.1", ushort port=8007)
@@ -26,7 +26,7 @@ public class Client : MonoBehaviour
 
     public void ConnectToServer()
     {
-        
+
         m_Connection = default(NetworkConnection);
 
         var endpoint = NetworkEndPoint.Parse(ipadd.text.ToString(), 8007);
@@ -48,7 +48,7 @@ public class Client : MonoBehaviour
         if (!m_Connection.IsCreated)
         {
             if (!m_Done)
-                addmsg("Something went wrong during connect");
+                addmsg("Please enter IP. (Server is not connected)");
             return;
         }
 

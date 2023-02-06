@@ -3,11 +3,19 @@ using UnityEngine.Assertions;
 
 using Unity.Collections;
 using Unity.Networking.Transport;
+using UnityEngine.UI;
 
 public class Server : MonoBehaviour
 {
     public NetworkDriver m_Driver;
     private NativeList<NetworkConnection> m_Connections;
+
+    public Text mytext;
+
+    public void addmsg(string txt)
+    {
+        mytext.text = txt + "\n";
+    }
 
     void Start()
     {
@@ -15,7 +23,7 @@ public class Server : MonoBehaviour
         var endpoint = NetworkEndPoint.AnyIpv4; // The local address to which the client will connect to is 127.0.0.1
         endpoint.Port = 8007;
         if (m_Driver.Bind(endpoint) != 0)
-            Debug.Log("Failed to bind to port 9000");
+            addmsg("Failed to bind to port 8007");
         else
             m_Driver.Listen();
 
@@ -44,12 +52,13 @@ public class Server : MonoBehaviour
                 --i;
             }
         }
+        
         // AcceptNewConnections
         NetworkConnection c;
         while ((c = m_Driver.Accept()) != default(NetworkConnection))
         {
             m_Connections.Add(c);
-            Debug.Log("Accepted a connection");
+            addmsg("Accepted a connection");
         }
 
         DataStreamReader stream;
@@ -62,7 +71,7 @@ public class Server : MonoBehaviour
                 {
                     uint number = stream.ReadUInt();
 
-                    Debug.Log("Got " + number + " from the Client adding + 2 to it.");
+                    addmsg("Got " + number + "from" + m_Connections[i] + "\n");
                     number += 2;
 
                     m_Driver.BeginSend(NetworkPipeline.Null, m_Connections[i], out var writer);
@@ -71,10 +80,12 @@ public class Server : MonoBehaviour
                 }
                 else if (cmd == NetworkEvent.Type.Disconnect)
                 {
-                    Debug.Log("Client disconnected from server");
+                    addmsg("Client disconnected from server");
                     m_Connections[i] = default(NetworkConnection);
                 }
             }
         }
+
+        //quiz options
     }
 }

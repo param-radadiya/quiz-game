@@ -1,0 +1,46 @@
+{
+	"Options": {
+		"Option": [
+			{
+				"no": 1,
+				"OptN": "Chase"
+			},
+			{
+				"no": 2,
+				"OptN": "Zuma"
+			},
+			{
+				"no": 3,
+				"OptN": "Marshall"
+			},
+			{
+				"no": 4,
+				"OptN": "Skye"
+			},
+			{
+				"no": 5,
+				"OptN": "Rocky"
+			},
+			{
+				"no": 6,
+				"OptN": "Rubble"
+			}
+		]
+	},
+
+	"QuizQs": {
+		"QuizQ": [
+			{
+				"no": "1",
+				"que": "I am police pup, I'm always on the case. Who am I?",
+				"ans": "Chase"
+			},
+			{
+				"no": "2",
+				"que": "I am a husky pup. Whether there's 'Ice or snow, I'm ready to go!'. Who am I?",
+				"ans": "Everest"
+			}
+		]
+	}
+
+}

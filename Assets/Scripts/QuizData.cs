@@ -1,10 +1,14 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuizData : MonoBehaviour
+[System.Serializable]
+
+public class QuizData
 {
-    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+
+    //Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class Option
     {
         public string no { get; set; }
@@ -13,6 +17,9 @@ public class QuizData : MonoBehaviour
 
     public class Options
     {
+        internal string no;
+        internal object pageList;
+
         public List<Option> Option { get; set; }
     }
 
@@ -30,7 +37,7 @@ public class QuizData : MonoBehaviour
 
     public class Root
     {
-        public Options Options { get; set; }
-        public QuizQs QuizQs { get; set; }
+        public Options Option { get; set; }
+        public QuizQs QuizQ { get; set; }
     }
 }

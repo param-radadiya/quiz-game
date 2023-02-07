@@ -1,7 +1,6 @@
 using UnityEngine;
-
-using Unity.Networking.Transport;
 using UnityEngine.UI;
+using Unity.Networking.Transport;
 
 public class Client : MonoBehaviour
 {
